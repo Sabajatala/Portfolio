@@ -5,14 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Portfolio of Saba A, a skilled MERN Stack Web Developer with a BS in Software Engineering. Explore innovative web projects.">
     <meta name="author" content="Saba A">
-    <title>Saba A - Portfolio</title>
+    <title>Saba A - MERN Stack Developer Portfolio</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #2d3748;
             --text-color: #e2e8f0;
             --accent-color: #af6681;
+            --secondary-accent: #667eea;
             --bg-gradient: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
         }
 
@@ -28,98 +30,169 @@
             background-size: cover;
             background-blend-mode: overlay;
             color: var(--text-color);
-            
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
         header {
-            background-color: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             padding: 1rem 2rem;
-            position: sticky;
+            position: fixed;
             top: 0;
+            width: 100%;
             z-index: 1000;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
             border-bottom: 2px solid var(--accent-color);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(0, 0, 0, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         header h1 {
-            font-size: 2rem;
-            font-weight: 600;
+            font-size: 1.8rem;
+            font-weight: 700;
             color: var(--text-color);
-            text-align: center;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         nav ul {
             list-style: none;
             display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 1rem;
+            gap: 2rem;
         }
 
         nav ul li a {
             color: var(--text-color);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s ease, transform 0.3s ease;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        nav ul li a:hover {
-            color: var(--accent-color);
-            transform: translateY(-2px);
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            color: var(--text-color);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
         }
 
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 0 2rem;
-            animation: fadeIn 1.5s ease-in-out;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 2rem;
+            position: relative;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(175, 102, 129, 0.3), rgba(102, 126, 234, 0.3));
+            z-index: -1;
         }
 
         .hero h2 {
-            font-size: 3.5rem;
-            font-weight: 600;
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: clamp(2.5rem, 8vw, 5rem);
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+            text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.8);
+            letter-spacing: 3px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.8), 0 0 20px var(--accent-color); }
+            to { text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.8), 0 0 30px var(--accent-color); }
         }
 
         .hero p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin-bottom: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            max-width: 700px;
+            margin-bottom: 2rem;
+            line-height: 1.8;
         }
 
         .hero .btn {
-            background-color: white;
-            color: var(--primary-color);
-            padding: 0.75rem 1.5rem;
-            border-radius: 5px;
+            background: linear-gradient(45deg, var(--accent-color), var(--secondary-accent));
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(175, 102, 129, 0.4);
+        }
+
+        .hero .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(175, 102, 129, 0.6);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 6rem 0;
         }
 
         .about {
-            padding: 4rem 2rem;
-            background-color: rgba(46, 52, 61, 0.9);
+            background: rgba(46, 52, 61, 0.9);
             text-align: center;
-            position: relative;
         }
 
         .about h3 {
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
             color: var(--accent-color);
+            font-weight: 700;
         }
 
         .about p {
@@ -129,18 +202,18 @@
         }
 
         .about .resume-btn {
-            background-color: var(--accent-color);
-            color: var(--primary-color);
+            background: linear-gradient(45deg, var(--accent-color), var(--secondary-accent));
+            color: white;
             padding: 0.75rem 1.5rem;
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
             cursor: pointer;
-            font-weight: 500;
-            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
 
         .about .resume-btn:hover {
-            background-color: #a54669;
+            background: linear-gradient(45deg, #a54669, #5a6fd6);
             transform: scale(1.05);
         }
 
@@ -151,19 +224,20 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.8);
             z-index: 1000;
             justify-content: center;
             align-items: center;
         }
 
         .modal-content {
-            background-color: rgba(45, 55, 72, 0.9);
+            background: rgba(45, 55, 72, 0.9);
             padding: 2rem;
             border-radius: 10px;
-            max-width: 80%;
-            max-height: 80vh;
+            max-width: 90%;
+            max-height: 90vh;
             overflow: auto;
+            position: relative;
         }
 
         .modal-content img {
@@ -187,11 +261,8 @@
         }
 
         .portfolio {
-            padding: 4rem 2rem;
-            background-color: rgba(9, 12, 17, 0.9);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 6rem 0;
+            background: rgba(9, 12, 17, 0.9);
             position: relative;
         }
 
@@ -200,6 +271,16 @@
             color: var(--accent-color);
             margin-right: 2rem;
             flex-shrink: 0;
+            font-weight: 700;
+        }
+
+        .portfolio .content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
 
         .portfolio .skills {
@@ -215,11 +296,30 @@
 
         .portfolio .skills ul {
             list-style: none;
-            font-size: 1.1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 1rem;
         }
 
         .portfolio .skills ul li {
-            margin-bottom: 0.5rem;
+            background-color: rgba(175, 102, 129, 0.2);
+            padding: 0.75rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-weight: 500;
+        }
+
+        .portfolio .skills ul li:nth-child(1) { background-color: rgba(175, 102, 129, 0.4); }
+        .portfolio .skills ul li:nth-child(2) { background-color: rgba(255, 99, 71, 0.4); }
+        .portfolio .skills ul li:nth-child(3) { background-color: rgba(60, 179, 113, 0.4); }
+        .portfolio .skills ul li:nth-child(4) { background-color: rgba(106, 90, 205, 0.4); }
+        .portfolio .skills ul li:nth-child(5) { background-color: rgba(255, 215, 0, 0.4); }
+        .portfolio .skills ul li:nth-child(6) { background-color: rgba(138, 43, 226, 0.4); }
+
+        .portfolio .skills ul li:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(175, 102, 129, 0.5);
         }
 
         .portfolio-cards {
@@ -277,8 +377,8 @@
         }
 
         .projects {
-            padding: 4rem 2rem;
-            background-color: rgba(9, 12, 17, 0.9);
+            padding: 6rem 0;
+            background: rgba(9, 12, 17, 0.9);
         }
 
         .projects h3 {
@@ -286,32 +386,52 @@
             text-align: center;
             color: var(--accent-color);
             margin-bottom: 2rem;
+            font-weight: 700;
         }
 
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .project-card {
-            background-color: rgba(45, 55, 72, 0.8);
+            background: rgba(45, 55, 72, 0.8);
             padding: 1.5rem;
             border-radius: 10px;
             text-align: center;
             transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(175, 102, 129, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .project-card:hover::before {
+            left: 100%;
         }
 
         .project-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 0 20px #a54669;
+            box-shadow: 0 0 20px rgba(175, 102, 129, 0.5);
         }
 
         .project-card img {
             width: 100%;
             height: 200px;
             object-fit: cover;
-            
+            border-radius: 5px;
             margin-bottom: 1rem;
         }
 
@@ -324,21 +444,27 @@
         .project-card p {
             font-size: 0.9rem;
             color: var(--text-color);
+            margin-bottom: 1rem;
         }
 
         .project-card a {
             color: var(--accent-color);
             text-decoration: none;
             font-weight: 500;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--accent-color);
+            border-radius: 5px;
+            transition: all 0.3s ease;
         }
 
         .project-card a:hover {
-            text-decoration: underline;
+            background: var(--accent-color);
+            color: white;
         }
 
         .contact {
-            padding: 4rem 2rem;
-            background-color: rgba(46, 52, 61, 0.9);
+            padding: 6rem 0;
+            background: rgba(46, 52, 61, 0.9);
             text-align: center;
         }
 
@@ -346,10 +472,11 @@
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
             color: var(--accent-color);
+            font-weight: 700;
         }
 
         .contact form {
-            max-width: 500px;
+            max-width: 600px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
@@ -358,39 +485,40 @@
 
         .contact input,
         .contact textarea {
-            padding: 0.75rem;
+            padding: 1rem;
             border: 1px solid var(--accent-color);
             border-radius: 5px;
-            background-color: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1);
             color: var(--text-color);
             font-size: 1rem;
+            transition: all 0.3s ease;
         }
 
         .contact input:focus,
         .contact textarea:focus {
             outline: none;
-            border-color: #a54669;
-            box-shadow: 0 0 5px #a54669;
+            border-color: var(--secondary-accent);
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
         }
 
         .contact button {
-            background-color: var(--accent-color);
-            color: var(--primary-color);
-            padding: 0.75rem 1.5rem;
+            background: linear-gradient(45deg, var(--accent-color), var(--secondary-accent));
+            color: white;
+            padding: 1rem 2rem;
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
             cursor: pointer;
-            font-weight: 500;
-            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
 
         .contact button:hover {
-            background-color: #a54669;
             transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(175, 102, 129, 0.4);
         }
 
         footer {
-            background-color: rgba(45, 55, 72, 0.9);
+            background: rgba(45, 55, 72, 0.9);
             padding: 2rem;
             text-align: center;
             border-top: 2px solid var(--accent-color);
@@ -404,41 +532,118 @@
             color: var(--accent-color);
             text-decoration: none;
             margin: 0 1rem;
-            transition: color 0.3s ease;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
         }
 
         footer a:hover {
-            color: #a54669;
+            color: var(--secondary-accent);
+            transform: scale(1.1);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .hero h2 { font-size: 3.5rem; }
+            .hero p { font-size: 1.2rem; max-width: 600px; }
+            .portfolio-card { width: 180px; }
+            .project-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+            .portfolio .content { flex-direction: column; text-align: center; }
+            .portfolio h3 { margin-right: 0; margin-bottom: 1rem; }
+            .portfolio .skills { max-width: 100%; }
         }
 
         @media (max-width: 768px) {
             header h1 { font-size: 1.5rem; }
-            nav ul { flex-direction: column; gap: 1rem; }
-            .hero h2 { font-size: 2rem; }
-            .hero p { font-size: 1rem; }
-            .portfolio { flex-direction: column; text-align: center; }
-            .portfolio h3 { margin-right: 0; margin-bottom: 1rem; }
-            .portfolio .skills { max-width: 100%; }
-            .portfolio-cards { justify-content: center; transform: rotate(0deg); }
-            .portfolio-card { width: 150px; }
+            .hamburger { display: block; }
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.95);
+                padding: 1rem;
+                border-bottom: 2px solid var(--accent-color);
+            }
+            .nav-menu.active { display: flex; }
+            nav ul li { margin: 0.5rem 0; }
+            .hero h2 { font-size: 2.5rem; }
+            .hero p { font-size: 1rem; max-width: 90%; }
+            .portfolio .content { flex-direction: column; align-items: center; }
+            .portfolio-cards {
+                transform: none;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                gap: 0.5rem;
+                justify-content: center;
+            }
+            .portfolio-card {
+                width: 30%;
+                min-width: 100px;
+                padding: 0.5rem;
+                transform: none !important;
+            }
+            .portfolio-card img {
+                height: 80px;
+            }
+            .portfolio-card h4 {
+                font-size: 0.9rem;
+            }
+            .portfolio-card p {
+                font-size: 0.7rem;
+            }
+            .portfolio .skills ul {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                gap: 2rem;
+                justify-content: center;
+                padding-bottom: 3%;
+            }
+            .portfolio .skills ul li {
+                width: 15%;
+                min-width: 70px;
+                padding: 0.5rem;
+                font-size: 0.8rem;
+            }
             .project-grid { grid-template-columns: 1fr; }
-            .contact form { max-width: 100%; }
+            .contact form { max-width: 90%; }
             .about .resume-btn { margin-top: 1rem; }
+        }
+
+        @media (max-width: 480px) {
+            header { padding: 1rem; }
+            .hero { padding: 1rem; }
+            .hero h2 { font-size: 2rem; }
+            .hero p { font-size: 0.9rem; }
+            .section { padding: 3rem 0; }
+            .about h3, .portfolio h3, .projects h3, .contact h3 { font-size: 1.8rem; }
+            .portfolio-card img { height: 60px; }
+            .portfolio-card { width: 30%; min-width: 80px; }
+            .portfolio-card h4 { font-size: 0.8rem; }
+            .portfolio-card p { font-size: 0.6rem; }
+            .project-card img { height: 150px; }
+            .modal-content { padding: 1rem; }
+            .portfolio .skills ul li { width: 15%; min-width: 60px; font-size: 0.7rem;  }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>MERN Developer</h1>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
+        <div class="header-container">
+            <h1>MERN Developer</h1>
+            <div class="hamburger">☰</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <section id="home" class="hero">
@@ -447,117 +652,125 @@
         <a href="#projects" class="btn">View My Work</a>
     </section>
 
-<!-- Portfolio Section -->
-<section id="portfolio" class="portfolio">
-    <h3>My Portfolio</h3>
-    <div class="portfolio-cards">
-        <div class="portfolio-card">
-            <img src="img/season.png" alt="Season's Palette">
-            <h4>Season's Palette</h4>
-            <p>A showcase of my first major project.</p>
-        </div>
-        <div class="portfolio-card">
-            <img src="img/land.png" alt="Land Real Estate">
-            <h4>LAND-Real Estate</h4>
-            <p>Another exciting project in my collection.</p>
-        </div>
-        <div class="portfolio-card">
-            <img src="img/nifty.png" alt="Nifty Quick Task">
-            <h4>Nifty-Quick Task</h4>
-            <p>The latest addition to my portfolio.</p>
-        </div>
-    </div>
-    <div class="skills">
-        <h4>My Skills</h4>
-        <ul>
-            <li>React.js</li>
-            <li>Node.js</li>
-            <li>Express.js</li>
-            <li>MongoDB</li>
-            <li>HTML5/CSS3</li>
-            <li>JavaScript</li>
-        </ul>
-    </div>
-</section>
-
-<section id="about" class="about">
-        <h3>About Me</h3>
-        <p>I’m Saba, a dedicated MERN Stack Developer with a BS in Software Engineering from Islamia University Bahawalpur, Rahim Yar Khan (2021-2025). I specialize in building full-stack web applications using React, Node.js, Express, and MongoDB, delivering scalable and user-friendly solutions. My portfolio includes e-commerce platform, real estate portal, movie streaming site, task management site, and robust backends, reflecting my commitment to innovation and quality.</p>
-        <button class="resume-btn" onclick="document.getElementById('resumeModal').style.display='flex'">View Resume</button>
-        <div id="resumeModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="document.getElementById('resumeModal').style.display='none'">&times;</span>
-                <img src="https://i.pinimg.com/736x/7d/6d/b9/7d6db9443b884de5e5777c5cb3cf2850.jpg" alt="Saba A Resume">
+    <section id="portfolio" class="portfolio section">
+        <div class="content">
+            <h3>My Portfolio</h3>
+            <div class="portfolio-cards">
+                <div class="portfolio-card">
+                    <img src="img/season.png" alt="Season's Palette">
+                    <h4>Season's Palette</h4>
+                    <p>A showcase of my first major project.</p>
+                </div>
+                <div class="portfolio-card">
+                    <img src="img/land.png" alt="Land Real Estate">
+                    <h4>LAND-Real Estate</h4>
+                    <p>Another exciting project in my collection.</p>
+                </div>
+                <div class="portfolio-card">
+                    <img src="img/nifty.png" alt="Nifty Quick Task">
+                    <h4>Nifty-Quick Task</h4>
+                    <p>The latest addition to my portfolio.</p>
+                </div>
+            </div>
+            <div class="skills">
+                <h4>My Skills</h4>
+                <ul>
+                    <li>React.js</li>
+                    <li>Node.js</li>
+                    <li>Express.js</li>
+                    
+                </ul>
+                <ul>
+                      <li>MongoDB</li>
+                    <li>HTML5/CSS3</li>
+                    <li>JavaScript</li>
+                </ul>
             </div>
         </div>
     </section>
 
+    <section id="about" class="about section">
+        <div class="container">
+            <h3>About Me</h3>
+            <p>I’m Saba, a dedicated MERN Stack Developer with a BS in Software Engineering from Islamia University Bahawalpur, Rahim Yar Khan (2021-2025). I specialize in building full-stack web applications using React, Node.js, Express, and MongoDB, delivering scalable and user-friendly solutions. My portfolio includes e-commerce platform, real estate portal, movie streaming site, task management site, and robust backends, reflecting my commitment to innovation and quality.</p>
+            <button class="resume-btn" onclick="document.getElementById('resumeModal').style.display='flex'">View Resume</button>
+            <div id="resumeModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="document.getElementById('resumeModal').style.display='none'">&times;</span>
+                    <img src="https://i.pinimg.com/736x/7d/6d/b9/7d6db9443b884de5e5777c5cb3cf2850.jpg" alt="Saba A Resume">
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- Projects Section -->
-<section id="projects" class="projects">
-    <h3>My Projects</h3>
-    <div class="project-grid">
-        <div class="project-card">
-            <img src="img/baggage.png" alt="Baggage Ecommerce">
-            <h4>Baggage - Ecommerce Website</h4>
-            <p>A seamless online store for bags of both genders, built with MERN for an enhanced shopping experience.</p>
-            <a href="#" aria-label="View Baggage Project">View Project</a>
+    <section id="projects" class="projects section">
+        <div class="container">
+            <h3>My Projects</h3>
+            <div class="project-grid">
+                <div class="project-card">
+                    <img src="img/baggage.png" alt="Baggage Ecommerce">
+                    <h4>Baggage - Ecommerce Website</h4>
+                    <p>A seamless online store for bags of both genders, built with MERN for an enhanced shopping experience.</p>
+                    <a href="#" aria-label="View Baggage Project">View Project</a>
+                </div>
+                <div class="project-card">
+                    <img src="img/land.png" alt="Land Real Estate">
+                    <h4>Land - Real Estate Website</h4>
+                    <p>A platform for property with advanced search and user-friendly dashboards.</p>
+                    <a href="#" aria-label="View Land Project">View Project</a>
+                </div>
+                <div class="project-card">
+                    <img src="img/nifty.png" alt="Nifty Task Management">
+                    <h4>Nifty - Task Management Website</h4>
+                    <p>A lightweight MERN-based platform designed to connect people who need help with small local tasks.</p>
+                    <a href="#" aria-label="View Nifty Project">View Project</a>
+                </div>
+                <div class="project-card">
+                    <img src="img/season.png" alt="Season's Palette Movie">
+                    <h4>Season's Palette - Movie Website</h4>
+                    <p>A movie discovery site with reviews, trailers, and personalized recommendations.</p>
+                    <a href="#" aria-label="View Season's Palette Project">View Project</a>
+                </div>
+                <div class="project-card">
+                    <img src="img/season.png" alt="Movie Admin Panel">
+                    <h4>Movie Site Admin Panel</h4>
+                    <p>A responsive admin panel for managing movie site content and performance.</p>
+                    <a href="#" aria-label="View Movie Admin Panel Project">View Project</a>
+                </div>
+                <div class="project-card">
+                    <img src="img/season.png" alt="IPTV Backend">
+                    <h4>IPTV Backend</h4>
+                    <p>A scalable backend solution for IPTV services, optimized for performance.</p>
+                    <a href="https://github.com/Sabajatala/IPTV-Backend" aria-label="View IPTV Backend Project">View Project</a>
+                </div>
+            </div>
         </div>
-        <div class="project-card">
-            <img src="img/land.png" alt="Land Real Estate">
-            <h4>Land - Real Estate Website</h4>
-            <p>A platform for property with advanced search and user-friendly dashboards.</p>
-            <a href="#" aria-label="View Land Project">View Project</a>
-        </div>
-        <div class="project-card">
-            <img src="img/nifty.png" alt="Nifty Task Management">
-            <h4>Nifty - Task Management Website</h4>
-            <p>A lightweight MERN-based platform designed to connect people who need help with small local tasks.</p>
-            <a href="#" aria-label="View Nifty Project">View Project</a>
-        </div>
-        <div class="project-card">
-            <img src="img/season.png" alt="Season's Palette Movie">
-            <h4>Season's Palette - Movie Website</h4>
-            <p>A movie discovery site with reviews, trailers, and personalized recommendations.</p>
-            <a href="#" aria-label="View Season's Palette Project">View Project</a>
-        </div>
-        <div class="project-card">
-            <img src="img/season.png" alt="Movie Admin Panel">
-            <h4>Movie Site Admin Panel</h4>
-            <p>A responsive admin panel for managing movie site content and performance.</p>
-            <a href="#" aria-label="View Movie Admin Panel Project">View Project</a>
-        </div>
-        <div class="project-card">
-            <img src="img/season.png" alt="IPTV Backend">
-            <h4>IPTV Backend</h4>
-            <p>A scalable backend solution for IPTV services, optimized for performance.</p>
-            <a href="https://github.com/Sabajatala/IPTV-Backend" aria-label="View IPTV Backend Project">View Project</a>
-        </div>
-    </div>
-</section>
-    
+    </section>
 
-    <section id="contact" class="contact">
-        <h3>Get in Touch</h3>
-        <p>Interested in collaborating? Reach out via email or phone, or subscribe for updates.</p>
-        <form>
-            <input type="email" placeholder="Your Email" required aria-label="Email Address">
-            <input type="text" placeholder="Your Message" required aria-label="Message">
-            <button type="submit" aria-label="Send Message">Send Message</button>
-        </form>
-        <p>Contact: sabajatala142@gmail.com | 03337442048</p>
+    <section id="contact" class="contact section">
+        <div class="container">
+            <h3>Get in Touch</h3>
+            <p>Interested in collaborating? Reach out via email or phone, or subscribe for updates.</p>
+            <form>
+                <input type="email" placeholder="Your Email" required aria-label="Email Address">
+                <textarea placeholder="Your Message" required aria-label="Message" rows="4"></textarea>
+                <button type="submit" aria-label="Send Message">Send Message</button>
+            </form>
+            <p>Contact: sabajatala142@gmail.com | 03337442048</p>
+        </div>
     </section>
 
     <footer>
         <p>&copy; 2025 Saba A. All rights reserved.</p>
         <div>
-            <a href="#" aria-label="Twitter Profile">Twitter</a>
-            <a href="#" aria-label="LinkedIn Profile">LinkedIn</a>
-            <a href="#" aria-label="GitHub Profile">GitHub</a>
+            <a href="#" aria-label="Twitter Profile"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+            <a href="#" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
         </div>
     </footer>
 
     <script>
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -567,19 +780,35 @@
                     top: target.offsetTop - headerHeight,
                     behavior: 'smooth'
                 });
+                document.querySelector('.nav-menu').classList.remove('active');
+                document.querySelector('.hamburger').innerHTML = '☰';
             });
         });
 
+        // Hamburger menu toggle
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            const navMenu = document.querySelector('.nav-menu');
+            navMenu.classList.toggle('active');
+            this.innerHTML = navMenu.classList.contains('active') ? '✕' : '☰';
+        });
+
+        // Form submission
         document.querySelector('form').addEventListener('submit', function(e) {
             e.preventDefault();
             const email = this.querySelector('input[type="email"]').value;
-            const message = this.querySelector('input[type="text"]').value;
+            const message = this.querySelector('textarea').value;
             if (email && message) {
                 alert('Message sent successfully! Thank you for reaching out.');
                 this.reset();
             } else {
                 alert('Please fill in all fields.');
             }
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            header.classList.toggle('scrolled', window.scrollY > 50);
         });
     </script>
 </body>
